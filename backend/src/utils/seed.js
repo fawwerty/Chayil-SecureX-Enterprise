@@ -9,6 +9,7 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'chayil_securex',
   user: process.env.DB_USER || 'chayil',
   password: process.env.DB_PASS || 'chayil_secret',
+  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
   connectionTimeoutMillis: 15000,
 });
 
