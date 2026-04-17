@@ -1,29 +1,18 @@
-FROM node:20-bookworm-slim
+FROM kalilinux/kali-rolling
 
-# Install security tools
-RUN apt-get update && apt-get install -y \
+# Install NodeJS and Kali security tools directly from Kali repositories
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    nodejs \
+    npm \
     nmap \
     nikto \
     sqlmap \
     theharvester \
     whatweb \
-    wget \
-    git \
-    python3 \
-    python3-pip \
+    amass \
+    nuclei \
+    curl \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Amass and Nuclei binaries
-RUN wget https://github.com/OWASP/Amass/releases/download/v4.2.0/amass_linux_amd64.zip \
-    && apt-get update && apt-get install -y unzip \
-    && unzip amass_linux_amd64.zip \
-    && mv amass_linux_amd64/amass /usr/local/bin/ \
-    && rm -rf amass_linux_amd64*
-
-RUN wget https://github.com/projectdiscovery/nuclei/releases/download/v3.2.9/nuclei_3.2.9_linux_amd64.zip \
-    && unzip nuclei_3.2.9_linux_amd64.zip \
-    && mv nuclei /usr/local/bin/ \
-    && rm -rf nuclei*
 
 WORKDIR /app
 
