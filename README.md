@@ -101,7 +101,7 @@ During the initial database deployment, the system automatically runs the secure
 - **Global Administrator:** `admin@chayilsecurex.com`
 - **Security Analyst:** `analyst@chayilsecurex.com`
 
-**Password:** `Admin@2024!` / `Analyst@2024!`
+**Password:** *(Please contact your system administrator or check your secure deployment notes for the initial bootstrap passwords)*
 *(Ensure you modify these access keys immediately upon logging into the production environment)*
 
 ---
