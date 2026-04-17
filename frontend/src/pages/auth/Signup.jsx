@@ -28,152 +28,100 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020205] flex items-center justify-center p-6 relative overflow-hidden font-sans">
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-cyan-500/10 blur-[150px] rounded-full -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 blur-[120px] rounded-full translate-y-1/2 translate-x-1/2 pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden font-sans">
+      {/* Background Image & Overlay */}
+      <div className="absolute inset-0 bg-cover bg-center z-0" style={{ backgroundImage: "url('/background4.jpg')" }} />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,2,5,0.7),rgba(2,2,5,0.95))] backdrop-blur-sm z-0" />
       
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 auth-card relative z-10"
-      >
-        {/* Left Panel: Brand & Mission */}
-        <div className="hidden lg:flex flex-col justify-between p-16 border-r border-white/5 relative bg-gradient-to-br from-cyan-500/10 to-transparent">
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-          
-          <div className="relative">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-4 mb-20"
-            >
-              <img src="/logo.jpg" className="w-12 h-12 rounded-2xl shadow-2xl border border-white/10" alt="Logo" />
-              <div className="text-2xl font-black text-white tracking-tighter uppercase">CHAYIL <span className="text-cyan-400">SECUREX</span></div>
-            </motion.div>
+      {/* Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-600/20 blur-[120px] rounded-full pointer-events-none z-0" />
 
-            <div className="space-y-8">
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em] text-shadow-glow">Operator Enrollment</span>
-              </motion.div>
-              
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-6xl font-black text-white leading-[1.05] tracking-tighter"
-              >
-                Join the <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">Vanguard.</span>
-              </motion.h1>
-              
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-slate-400 font-medium leading-relaxed max-w-sm text-lg"
-              >
-                Request your credentials for Africa's most advanced cybersecurity and GRC orchestration network.
-              </motion.p>
+      <motion.div 
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-[420px] relative z-10 p-10 rounded-[32px] bg-slate-900/40 backdrop-blur-2xl border border-white/5 shadow-[0_0_80px_rgba(34,211,238,0.1)] overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-30" />
+        
+        <div className="relative z-10">
+          <div className="flex flex-col items-center text-center mb-10">
+            <div className="relative group mb-6">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-md rounded-2xl group-hover:bg-cyan-500/40 transition-colors" />
+              <img src="/logo.jpg" className="relative w-14 h-14 rounded-2xl object-cover border border-white/10" alt="Logo" />
             </div>
+            <h2 className="text-2xl font-black text-white tracking-tighter uppercase mb-2">Operator Enrollment</h2>
+            <p className="text-slate-400 font-medium text-xs leading-relaxed max-w-[260px]">
+              Initialize your identity to join the Chayil SecureX network.
+            </p>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="relative grid grid-cols-2 gap-10"
-          >
-            {[
-              { v: 'Real-time', l: 'Assurance' },
-              { v: 'Global', l: 'Alignment' }
-            ].map(s => (
-              <div key={s.l}>
-                <div className="text-xl font-black text-white tracking-tight leading-none mb-2">{s.v}</div>
-                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{s.l}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+          <AnimatePresence>
+            {error && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="p-3 bg-red-900/30 border border-red-500/20 rounded-xl mb-6 overflow-hidden"
+              >
+                <div className="text-[11px] font-bold text-red-300 flex items-center justify-center gap-2 uppercase tracking-wide">
+                  <span className="text-sm">⚠</span> {error}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* Right Panel: Form */}
-        <div className="p-10 lg:p-20 flex flex-col justify-center bg-slate-950/20">
-          <div className="max-w-sm mx-auto w-full">
-            <div className="mb-10 text-center lg:text-left">
-              <h2 className="text-3xl font-black text-white tracking-tight mb-3 uppercase">Enrollment</h2>
-              <p className="text-slate-500 font-medium text-sm">Initialize your operator identity to proceed.</p>
+          <form onSubmit={submit} className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Full Name</label>
+              <input 
+                className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-slate-600 outline-none focus:border-cyan-500/50 focus:bg-black/60 transition-all font-medium" 
+                name="name" value={form.name} onChange={handle} placeholder="Kwame Mensah" required
+              />
             </div>
-
-            <AnimatePresence>
-              {error && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl mb-8 overflow-hidden"
-                >
-                  <div className="text-xs font-bold text-red-100 flex items-center gap-3">
-                    <span className="text-base">⚠</span> {error}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <form onSubmit={submit} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Full Name</label>
-                <input 
-                  className="w-full auth-input px-5 text-white placeholder:text-slate-700 outline-none" 
-                  name="name" value={form.name} onChange={handle} placeholder="Kwame Mensah" required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Organisation</label>
-                <input 
-                  className="w-full auth-input px-5 text-white placeholder:text-slate-700 outline-none" 
-                  name="organization" value={form.organization} onChange={handle} placeholder="Company Ltd" required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Work Email</label>
-                <input 
-                  className="w-full auth-input px-5 text-white placeholder:text-slate-700 outline-none" 
-                  type="email" name="email" value={form.email} onChange={handle} placeholder="kwame@company.com" required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Access Key</label>
-                <input 
-                  className="w-full auth-input px-5 text-white placeholder:text-slate-700 outline-none" 
-                  type="password" name="password" value={form.password} onChange={handle} placeholder="••••••••••••" required
-                />
-              </div>
-              
-              <div className="pt-4">
-                <button 
-                  type="submit" 
-                  className="w-full auth-btn bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow-xl shadow-cyan-500/10 hover:shadow-cyan-500/25 active:scale-[0.98] border-none cursor-pointer"
-                  disabled={loading}
-                >
-                  {loading ? <div className="w-5 h-5 border-2 border-white/20 border-t-white animate-spin rounded-full mx-auto" /> : 'REQUEST ENROLLMENT →'}
-                </button>
-              </div>
-            </form>
-
-            <div className="mt-12 text-center">
-              <p className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-4">Already authenticated?</p>
-              <button onClick={() => navigate('/login')} className="text-[10px] font-black text-cyan-500 hover:text-white uppercase tracking-widest transition-colors flex items-center justify-center gap-2 mx-auto bg-transparent border-none cursor-pointer">
-                SIGN IN AS OPERATOR →
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Organisation</label>
+              <input 
+                className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-slate-600 outline-none focus:border-cyan-500/50 focus:bg-black/60 transition-all font-medium" 
+                name="organization" value={form.organization} onChange={handle} placeholder="Company Ltd" required
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Work Email</label>
+              <input 
+                className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-slate-600 outline-none focus:border-cyan-500/50 focus:bg-black/60 transition-all font-medium" 
+                type="email" name="email" value={form.email} onChange={handle} placeholder="kwame@company.com" required
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] px-1">Access Key</label>
+              <input 
+                className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white placeholder:text-slate-600 outline-none focus:border-cyan-500/50 focus:bg-black/60 transition-all font-medium tracking-widest" 
+                type="password" name="password" value={form.password} onChange={handle} placeholder="••••••••••••" required
+              />
+            </div>
+            
+            <div className="pt-4">
+              <button 
+                type="submit" 
+                className="w-full h-12 rounded-xl bg-white text-slate-950 text-[11px] font-black tracking-[0.2em] uppercase hover:bg-slate-200 active:scale-[0.98] transition-all border-none cursor-pointer flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                disabled={loading}
+              >
+                {loading ? <div className="w-4 h-4 border-2 border-slate-950/20 border-t-slate-950 animate-spin rounded-full" /> : 'REQUEST ENROLLMENT →'}
               </button>
             </div>
+          </form>
 
-            <div className="mt-8 pt-8 border-t border-white/5 text-center">
-              <button onClick={() => navigate('/')} className="text-[10px] font-black text-slate-600 hover:text-white uppercase tracking-widest transition-colors flex items-center justify-center gap-2 mx-auto bg-transparent border-none cursor-pointer">
-                ← RETURN TO SURFACE
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold">
+              <span className="text-slate-600">Already Registered?</span>
+              <button onClick={() => navigate('/login')} className="text-cyan-400 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 font-black">
+                SIGN IN
               </button>
             </div>
+            <button onClick={() => navigate('/')} className="text-[9px] font-black text-slate-600 hover:text-white uppercase tracking-[0.2em] transition-colors bg-transparent border-none cursor-pointer">
+              ← RETURN TO SURFACE
+            </button>
           </div>
         </div>
       </motion.div>
